@@ -106,6 +106,20 @@ class OptimizedRounder:
             Discrete class predictions
         '''
         return np.searchsorted(thresholds, X, side='right')
+    
+    def apply_default_thresholds(self, X: np.ndarray) -> np.ndarray:
+        '''
+        Apply default thresholds to convert continuous predictions to discrete classes.
+
+        Args:
+            X: Continuous predictions array
+
+        Returns:
+            Discrete class predictions
+        '''
+        if self.apply_default_thresholds is None:
+            raise ValueError('Model not trained. Call fit() before predict().')
+        return self.apply_thresholds(X, self.default_thresholds)
 
     def _evaluate_thresholds(self, thresholds: List[float], X: np.ndarray, y: np.ndarray) -> float:
         '''
