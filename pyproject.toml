@@ -7,6 +7,7 @@ build-backend = "setuptools.build_meta"
 name = "optimized-rounder"
 description = "An optimizer for finding optimal thresholds in ordinal classification problems"
 readme = "README.md"
+dynamic = ["version"]
 license = {text = "MIT"}
 classifiers = [
     "Programming Language :: Python :: 3",
