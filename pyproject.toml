@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "optimized-rounder"
-version = "0.1.0"
+version = "0.1.1"
 description = "An optimizer for finding optimal thresholds in ordinal classification problems"
 readme = "README.md"
 license = {text = "MIT"}
@@ -25,8 +25,8 @@ dependencies = [
 requires-python = ">=3.9"
 
 [project.urls]
-"Homepage" = "https://github.com/yourusername/optimized-rounder"
-"Bug Tracker" = "https://github.com/yourusername/optimized-rounder/issues"
+"Homepage" = "https://github.com/susuky/optimized-rounder"
+"Bug Tracker" = "https://github.com/susuky/optimized-rounder/issues"
 
 [tool.setuptools]
 packages = ["oprounder"]
