@@ -21,7 +21,7 @@ pip install optimized-rounder
 ## Quick Start
 
 ```python
-from optimized_rounder import OptimizedRounder
+from oprounder import OptimizedRounder
 import numpy as np
 from sklearn.metrics import cohen_kappa_score
 
@@ -30,17 +30,17 @@ np.random.seed(42)
 n_classes = 4
 n_samples = 1000
 y_true = np.random.randint(0, n_classes, size=n_samples)
-X_train = y_true + np.random.normal(0, 0.8, size=n_samples)
+output = y_true + np.random.normal(0, 0.8, size=n_samples) # dummy model output
 
 # Initialize and fit the optimizer
 rounder = OptimizedRounder(n_classes=n_classes, n_trials=100)
-rounder.fit(X_train, y_true)
+rounder.fit(output, y_true)
 
 # Get the optimal thresholds
 print(f'Optimal thresholds: {rounder.thresholds}')
 
 # Make predictions
-y_pred = rounder.predict(X_train)
+y_pred = rounder.predict(output)
 kappa = cohen_kappa_score(y_true, y_pred, weights='quadratic')
 print(f'Quadratic kappa: {kappa:.4f}')
 ```
@@ -60,7 +60,7 @@ rounder = OptimizedRounder(
     verbose=True
 )
 
-rounder.fit(X_train, y_true)
+rounder.fit(output, y_true)
 print(f'CV Results: {rounder.cv_results_}')
 ```
 
@@ -74,10 +74,11 @@ rounder = OptimizedRounder(
     metric='f1_weighted'
 )
 
-rounder.fit(X_train, y_true)
+rounder.fit(output, y_true)
 
 # Comprehensive evaluation
-metrics = rounder.evaluate(X_val, y_true)
+output_val = y_true + np.random.normal(0, 0.8, size=n_samples)
+metrics = rounder.evaluate(output_val, y_true)
 for metric_name, value in metrics.items():
     print(f"{metric_name}: {value:.4f}")
 ```
