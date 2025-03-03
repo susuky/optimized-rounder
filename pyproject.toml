@@ -33,3 +33,6 @@ packages = ["oprounder"]
 
 [tool.setuptools.dynamic]
 version = {attr = "oprounder.__version__"}
+
+[tool.pytest.ini_options]
+testpaths = ["test"]
