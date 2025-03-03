@@ -1,0 +1,35 @@
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "optimized-rounder"
+version = "0.1.0"
+description = "An optimizer for finding optimal thresholds in ordinal classification problems"
+readme = "README.md"
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+keywords = ["machine learning", "optimization", "thresholds", "ordinal classification"]
+dependencies = [
+    "numpy",
+    "optuna",
+    "scikit-learn",
+]
+requires-python = ">=3.9"
+
+[project.urls]
+"Homepage" = "https://github.com/yourusername/optimized-rounder"
+"Bug Tracker" = "https://github.com/yourusername/optimized-rounder/issues"
+
+[tool.setuptools]
+packages = ["oprounder"]
+
+[tool.setuptools.dynamic]
+version = {attr = "oprounder.__version__"}
