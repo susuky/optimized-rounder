@@ -117,7 +117,7 @@ class OptimizedRounder:
         Returns:
             Discrete class predictions
         '''
-        if self.apply_default_thresholds is None:
+        if self.default_thresholds is None:
             raise ValueError('Model not trained. Call fit() before predict().')
         return self.apply_thresholds(X, self.default_thresholds)
 
