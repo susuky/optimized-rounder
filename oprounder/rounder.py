@@ -20,9 +20,12 @@ class OptimizedRounder:
     and multiple evaluation metrics.
     '''
 
-    def __init__(self, n_classes: Optional[int] = None, n_trials: int = 200,
-                 cv: Optional[Union[int, object]] = None, stratified: bool = True,
-                 metric: str = 'quadratic_kappa', verbose: bool = False,
+    def __init__(self, n_classes: Optional[int] = None, 
+                 n_trials: int = 200,
+                 cv: Optional[Union[int, object]] = None, 
+                 stratified: bool = True,
+                 metric: str = 'quadratic_kappa', 
+                 verbose: bool = False,
                  random_state: int = 42):
         '''
         Initialize the OptimizedRounder.
@@ -52,7 +55,17 @@ class OptimizedRounder:
 
         # Configure Optuna logging
         optuna.logging.set_verbosity(
-            optuna.logging.WARNING if not verbose else optuna.logging.INFO)
+            optuna.logging.WARNING if not verbose else 
+            optuna.logging.INFO
+        )
+
+        # set default thresholds
+        if self.n_classes is not None:
+            self.default_thresholds = np.linspace(0.5, 
+                                                  self.n_classes - 1.5, 
+                                                  self.n_classes - 1)
+        else:
+            self.default_thresholds = None
 
     def _get_metric_function(self, metric: str) -> Callable:
         '''
@@ -144,15 +157,20 @@ class OptimizedRounder:
         '''
         if self.n_classes is None:
             self.n_classes = len(np.unique(y))
+            self.default_thresholds = np.linspace(0.5, 
+                                                  self.n_classes - 1.5, 
+                                                  self.n_classes - 1)
 
         # Set up cross-validation if requested
         if self.cv is not None:
             if isinstance(self.cv, int):
                 if self.stratified:
-                    self.cv_splitter = StratifiedKFold(n_splits=self.cv, shuffle=True,
+                    self.cv_splitter = StratifiedKFold(n_splits=self.cv, 
+                                                       shuffle=True,
                                                        random_state=self.random_state)
                 else:
-                    self.cv_splitter = KFold(n_splits=self.cv, shuffle=True,
+                    self.cv_splitter = KFold(n_splits=self.cv, 
+                                             shuffle=True,
                                              random_state=self.random_state)
             else:
                 self.cv_splitter = self.cv
@@ -271,7 +289,8 @@ class OptimizedRounder:
         '''
         if self.thresholds is None:
             raise ValueError(
-                'Model not trained. Call fit() before accessing thresholds.')
+                'Model not trained. Call fit() before accessing thresholds.'
+            )
         return self.thresholds
 
     def evaluate(self, X: np.ndarray, y: np.ndarray) -> Dict[str, float]:
@@ -287,7 +306,8 @@ class OptimizedRounder:
         '''
         if self.thresholds is None:
             raise ValueError(
-                'Model not trained. Call fit() before evaluate().')
+                'Model not trained. Call fit() before evaluate().'
+            )
 
         y_pred = self.predict(X)
 

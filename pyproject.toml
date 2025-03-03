@@ -5,7 +5,6 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "optimized-rounder"
-version = "0.1.1"
 description = "An optimizer for finding optimal thresholds in ordinal classification problems"
 readme = "README.md"
 license = {text = "MIT"}

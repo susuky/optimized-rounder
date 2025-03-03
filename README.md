@@ -30,7 +30,7 @@ np.random.seed(42)
 n_classes = 4
 n_samples = 1000
 y_true = np.random.randint(0, n_classes, size=n_samples)
-output = y_true + np.random.normal(0, 0.8, size=n_samples) # dummy model output
+output = y_true + np.random.normal(0, 0.9, size=n_samples) # dummy model output
 
 # Initialize and fit the optimizer
 rounder = OptimizedRounder(n_classes=n_classes, n_trials=100)
@@ -42,7 +42,10 @@ print(f'Optimal thresholds: {rounder.thresholds}')
 # Make predictions
 y_pred = rounder.predict(output)
 kappa = cohen_kappa_score(y_true, y_pred, weights='quadratic')
-print(f'Quadratic kappa: {kappa:.4f}')
+print(f'Optimal Quadratic kappa: {kappa:.4f}')
+y_pred_default = rounder.apply_thresholds(output, rounder.default_thresholds) # [0.5, 1.5, 2.5, 3.5]
+kappa_default = cohen_kappa_score(y_true, y_pred_default, weights='quadratic')
+print(f'Default Quadratic kappa: {kappa_default:.4f}')
 ```
 
 ## Advanced Usage
